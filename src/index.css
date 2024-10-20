@@ -1,0 +1,126 @@
+@font-face {
+  font-family: SpotifyMix;
+  src: url(assets/SpotifyMix-Regular.woff2);
+}
+
+* {
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0;
+}
+
+body {
+  background-color: #000;
+  font-family: SpotifyMix;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  object-fit: cover;
+}
+
+.hover-link:hover {
+  text-decoration: underline;
+}
+
+.main-div {
+  padding-inline: 10px;
+}
+
+.main-div-2 {
+  box-shadow: 1px 1px 1px 1px #b2b2b2;
+}
+
+.fz-11 {
+  font-size: 0.6875rem;
+}
+
+.fz-12 {
+  font-size: 0.75rem;
+}
+
+.fz-14 {
+  font-size: 0.875rem;
+}
+
+.fz-16 {
+  font-size: 1rem;
+}
+
+.fz-24 {
+  font-size: 1.5rem;
+}
+
+.mid-nav {
+  width: 500px;
+}
+
+.grey {
+  color: #b3b3b3;
+}
+
+.bg-grey {
+  background-color: #1f1f1f;
+}
+
+.bg-dark-grey {
+  background-color: #121212;
+}
+
+.empty {
+  border-right: 1px solid #b2b2b2;
+  height: 24px;
+}
+
+.search-input {
+  outline: none;
+  padding-block: 10px;
+}
+
+.homebtn {
+  border-radius: 50%;
+  font-size: 24px;
+  padding: 10px;
+}
+
+.playlist-btn {
+  padding: 5px 10px;
+}
+
+.playlist-container {
+  height: 250px;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.last-link {
+  position: relative;
+}
+
+.last-link:hover::after {
+  background-color: #b2b2b2;
+  bottom: 0;
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.playbtn-container {
+  background-color: #3be477;
+}
+
+.footer-container {
+  background: linear-gradient(90deg, #af2896, #509bf5);
+}
+
+.album-container {
+  height: 510px;
+  overflow: scroll;
+}
