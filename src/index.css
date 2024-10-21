@@ -114,6 +114,11 @@ img {
 
 .playbtn-container {
   background-color: #3be477;
+  bottom: 55px;
+  box-shadow: 1px 1px 20px #555;
+  display: none !important;
+  position: absolute;
+  right: 5px;
 }
 
 .footer-container {
@@ -123,4 +128,18 @@ img {
 .album-container {
   height: 510px;
   overflow: scroll;
+}
+
+.play-card {
+  cursor: pointer;
+  padding: 10px;
+  position: relative;
+}
+
+.play-card:hover {
+  background-color: #222;
+}
+
+.play-card:hover .playbtn-container {
+  display: flex !important;
 }

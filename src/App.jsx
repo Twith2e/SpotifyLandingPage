@@ -1,6 +1,5 @@
 import NavBar from "./NavBar";
 import SideBar from "./SideBar";
-import PlayButton from "./PlayButton";
 import Footer from "./Footer";
 import SectionHead from "./SectionHead";
 import Circle from "./CircleArtistCard";
@@ -137,10 +136,10 @@ export default function App() {
           <SideBar />
         </div>
         <div className="col-8 bg-dark-grey rounded-3">
-          <div className="d-flex album-container flex-column gap-5 p-2">
+          <div className="d-flex album-container flex-column gap-5 px-0 py-2">
             <div>
               <SectionHead title="Popular artists" />
-              <div className="d-flex gap-4">
+              <div className="d-flex">
                 {artistArray.map((artist) => (
                   <Circle src={artist.src} artistName={artist.artistName} />
                 ))}
@@ -148,7 +147,7 @@ export default function App() {
             </div>
             <div>
               <SectionHead title="Popular albums" />
-              <div className="d-flex gap-4">
+              <div className="d-flex">
                 {albumArray.map((album) => (
                   <ArtistCard
                     src={album.src}
@@ -168,7 +167,7 @@ export default function App() {
             </div>
             <div>
               <SectionHead title="Featured Charts" />
-              <div className="d-flex gap-4">
+              <div className="d-flex">
                 {featuredArray.map((feature) => (
                   <ArtistCard src={feature.src} artist={feature.artist} />
                 ))}
@@ -176,7 +175,7 @@ export default function App() {
             </div>
             <div>
               <SectionHead title="Spotify Playlists" />
-              <div className="d-flex gap-4">
+              <div className="d-flex">
                 {sPlaylistArray.map((playlist) => (
                   <ArtistCard src={playlist.src} artist={playlist.artist} />
                 ))}
