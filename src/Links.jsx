@@ -114,7 +114,7 @@ export default function Links() {
               role="img"
               aria-hidden="true"
               viewBox="0 0 16 16"
-              class="Svg-sc-ytk21e-0 dCAvla"
+              className="Svg-sc-ytk21e-0 dCAvla"
               xmlns="http://www.w3.org/2000/svg"
               height={18}
               fill="#fff"
@@ -132,7 +132,7 @@ export default function Links() {
               role="img"
               aria-hidden="true"
               viewBox="0 0 16 16"
-              class="Svg-sc-ytk21e-0 dCAvla"
+              className="Svg-sc-ytk21e-0 dCAvla"
               xmlns="http://www.w3.org/2000/svg"
               height={18}
               fill="#fff"
@@ -149,7 +149,7 @@ export default function Links() {
               role="img"
               aria-hidden="true"
               viewBox="0 0 16 16"
-              class="Svg-sc-ytk21e-0 dYnaPI"
+              className="Svg-sc-ytk21e-0 dYnaPI"
               xmlns="http://www.w3.org/2000/svg"
               height={18}
               fill="#fff"

@@ -1,4 +1,3 @@
-import PlayButton from "./PlayButton";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
@@ -12,7 +11,11 @@ export default function Circle(props) {
         src={props.src}
         alt=""
       />
-      <a className="text-white fz-16" href="">
+      <a
+        className="text-white fz-16 text-truncate"
+        style={{ width: "150px" }}
+        href=""
+      >
         {" "}
         {props.artistName}{" "}
       </a>
@@ -27,7 +30,7 @@ export default function Circle(props) {
             role="img"
             aria-hidden="true"
             viewBox="0 0 24 24"
-            class="Svg-sc-ytk21e-0 bneLcE"
+            className="Svg-sc-ytk21e-0 bneLcE"
             xmlns="http://www.w3.org/2000/svg"
             height="30"
           >

@@ -26,7 +26,7 @@ export default function Circle(props) {
             role="img"
             aria-hidden="true"
             viewBox="0 0 24 24"
-            class="Svg-sc-ytk21e-0 bneLcE"
+            className="Svg-sc-ytk21e-0 bneLcE"
             xmlns="http://www.w3.org/2000/svg"
             height="30"
           >

@@ -1,35 +1,19 @@
 import NavBar from "./NavBar";
 import SideBar from "./SideBar";
-import Footer from "./Footer";
+import MusicControls from "./MusicControls";
+// import Footer from "./Footer";
 import SectionHead from "./SectionHead";
 import Circle from "./CircleArtistCard";
 import ArtistCard from "./ArtistCard";
 import Links from "./Links";
+import useFetch from "./useFetch";
 import "./index.css";
 
 export default function App() {
-  const artistArray = [
-    {
-      src: "src/assets/Asake.jpeg",
-      artistName: "Asake",
-    },
-    {
-      src: "src/assets/Young Jonn.jpeg",
-      artistName: "Young Jonn",
-    },
-    {
-      src: "src/assets/Rema.jpeg",
-      artistName: "Rema",
-    },
-    {
-      src: "src/assets/Burna Boy.jpeg",
-      artistName: "Burna Boy",
-    },
-    {
-      src: "src/assets/Victony.jpeg",
-      artistName: "Victony",
-    },
-  ];
+  const url = "https://robo-music-api.onrender.com/music/my-api";
+  const { data, isPending, error } = useFetch(url);
+
+  const newData = data.filter((d) => d.id !== 4).slice(0, 5);
 
   const albumArray = [
     {
@@ -140,26 +124,31 @@ export default function App() {
             <div>
               <SectionHead title="Popular artists" />
               <div className="d-flex">
-                {artistArray.map((artist) => (
-                  <Circle src={artist.src} artistName={artist.artistName} />
+                {newData.map((song) => (
+                  <Circle
+                    src={song.songImage}
+                    artistName={song.artistName}
+                    key={song.id}
+                  />
                 ))}
               </div>
             </div>
             <div>
               <SectionHead title="Popular albums" />
               <div className="d-flex">
-                {albumArray.map((album) => (
+                {albumArray.map((album, index) => (
                   <ArtistCard
                     src={album.src}
                     albumName={album.albumName}
                     artist={album.artist}
+                    key={index}
                   />
                 ))}
               </div>
             </div>
             <div>
               <SectionHead title="Popular radio" />
-              <div className="d-flex gap-4">
+              <div className="d-flex">
                 {radioArray.map((radio) => (
                   <ArtistCard src={radio.src} artist={radio.artist} />
                 ))}
@@ -189,7 +178,7 @@ export default function App() {
       </div>
       <div className="row">
         <div className="col-12 position-fixed mt-2">
-          <Footer />
+          <MusicControls />
         </div>
       </div>
     </div>
