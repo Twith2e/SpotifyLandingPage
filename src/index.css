@@ -14,6 +14,11 @@ body {
   font-family: SpotifyMix;
 }
 
+button {
+  border: none !important;
+  outline: none !important;
+}
+
 a {
   text-decoration: none;
 }
@@ -146,4 +151,43 @@ img {
 
 .play-card:hover .playbtn-container {
   display: flex !important;
+}
+
+.seekbar-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.seekbar {
+  -webkit-appearance: none; /* Remove default styling */
+  appearance: none;
+  width: 100%;
+  height: 6px; /* Height of the seek bar */
+  border-radius: 5px;
+  background: grey;
+  outline: none; /* Remove outline */
+  cursor: pointer;
+}
+
+.seekbar::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Remove default thumb */
+  appearance: none;
+  width: 16px; /* Width of the thumb */
+  height: 16px; /* Height of the thumb */
+  border-radius: 50%; /* Circular thumb */
+  background: #f5f5f5; /* Color of the thumb */
+  border: 2px solid #1db954; /* Border of the thumb */
+  cursor: pointer; /* Pointer cursor */
+}
+
+.seekbar::-moz-range-thumb {
+  width: 16px; /* Width of the thumb */
+  height: 16px; /* Height of the thumb */
+  border-radius: 50%; /* Circular thumb */
+  background: #f5f5f5; /* Color of the thumb */
+  border: 2px solid #1db954; /* Border of the thumb */
+  cursor: pointer; /* Pointer cursor */
 }

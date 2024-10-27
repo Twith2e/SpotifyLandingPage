@@ -1,13 +1,14 @@
+import { useRef, useState } from "react";
 import NavBar from "./NavBar";
 import SideBar from "./SideBar";
 import MusicControls from "./MusicControls";
-// import Footer from "./Footer";
 import SectionHead from "./SectionHead";
 import Circle from "./CircleArtistCard";
 import ArtistCard from "./ArtistCard";
 import Links from "./Links";
 import useFetch from "./useFetch";
 import "./index.css";
+import AudioProvider from "./AudioContext";
 
 export default function App() {
   const url = "https://robo-music-api.onrender.com/music/my-api";
@@ -128,7 +129,9 @@ export default function App() {
                   <Circle
                     src={song.songImage}
                     artistName={song.artistName}
+                    id={song.id}
                     key={song.id}
+                    songUrl={song.songUrl}
                   />
                 ))}
               </div>
@@ -178,7 +181,7 @@ export default function App() {
       </div>
       <div className="row">
         <div className="col-12 position-fixed mt-2">
-          <MusicControls />
+          <MusicControls data={data} />
         </div>
       </div>
     </div>
