@@ -4,6 +4,7 @@ import SideBar from "./SideBar";
 import MusicControls from "./MusicControls";
 import SectionHead from "./SectionHead";
 import Circle from "./CircleArtistCard";
+import CardSkeleton from "./CardSkeleton";
 import ArtistCard from "./ArtistCard";
 import Links from "./Links";
 import useFetch from "./useFetch";
@@ -125,15 +126,19 @@ export default function App() {
             <div>
               <SectionHead title="Popular artists" />
               <div className="d-flex">
-                {newData.map((song) => (
-                  <Circle
-                    src={song.songImage}
-                    artistName={song.artistName}
-                    id={song.id}
-                    key={song.id}
-                    songUrl={song.songUrl}
-                  />
-                ))}
+                {isPending
+                  ? Array(5)
+                      .fill()
+                      .map((_, index) => <CardSkeleton key={index} />)
+                  : newData.map((song) => (
+                      <Circle
+                        src={song.songImage}
+                        artistName={song.artistName}
+                        id={song.id}
+                        key={song.id}
+                        songUrl={song.songUrl}
+                      />
+                    ))}
               </div>
             </div>
             <div>
@@ -180,7 +185,7 @@ export default function App() {
         </div>
       </div>
       <div className="row">
-        <div className="col-12 position-fixed mt-2">
+        <div className="col-12 mt-2">
           <MusicControls data={data} />
         </div>
       </div>

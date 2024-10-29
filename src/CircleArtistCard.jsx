@@ -16,9 +16,9 @@ export default function Circle(props) {
 
   function handlePlayPause() {
     if (songUrl !== props.songUrl) {
+      setActiveButton(true);
       if (isPlaying) {
         pauseSong();
-        setActiveButton(true);
       }
       playSong(props.songUrl);
     } else {

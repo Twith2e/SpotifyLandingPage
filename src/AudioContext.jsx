@@ -6,6 +6,7 @@ export default function AudioProvider({ children }) {
   const audioref = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [songUrl, setSongUrl] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [activeButton, setActiveButton] = useState(false);
   const [songInfo, setSongInfo] = useState({
     image: null,
@@ -42,10 +43,13 @@ export default function AudioProvider({ children }) {
       value={{
         playSong,
         pauseSong,
+        setSongUrl,
         setActiveButton,
         setSongInfo,
         setCurrentTime,
         setDuration,
+        setCurrentIndex,
+        currentIndex,
         currentTime,
         duration,
         songInfo,
@@ -59,5 +63,3 @@ export default function AudioProvider({ children }) {
     </AudioContext.Provider>
   );
 }
-
-// export const useAudio = () => useContext(AudioContext);

@@ -16,6 +16,8 @@ const MusicControls = (props) => {
     currentTime,
     setDuration,
     duration,
+    setCurrentIndex,
+    currentIndex,
   } = useContext(AudioContext);
 
   const musicData = props.data;
@@ -31,6 +33,16 @@ const MusicControls = (props) => {
       });
     }
   }, [songUrl, musicData]);
+
+  useEffect(() => {
+    if (currentTime === duration) {
+      const timer = setTimeout(() => {
+        handleNext();
+      }, 100); // small delay
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentTime]);
 
   useEffect(() => {
     const audio = audioref.current;
@@ -60,6 +72,24 @@ const MusicControls = (props) => {
     };
   }, []);
 
+  function handlePrev() {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+      const prevSong = musicData[currentIndex - 1];
+      if (prevSong.songUrl) {
+        playSong(prevSong.songUrl);
+        setActiveButton(true);
+      }
+    } else {
+      setCurrentIndex(musicData.length - 1);
+      const lastSong = musicData[musicData.length - 1];
+      if (lastSong.songUrl) {
+        playSong(lastSong.songUrl);
+        setActiveButton(true);
+      }
+    }
+  }
+
   function handlePlayPause() {
     if (isPlaying) {
       pauseSong();
@@ -70,36 +100,69 @@ const MusicControls = (props) => {
     }
   }
 
+  function handleNext() {
+    if (currentIndex < musicData.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+      const nextSong = musicData[currentIndex + 1];
+      if (nextSong.songUrl) {
+        playSong(nextSong.songUrl);
+        setActiveButton(true);
+      }
+    } else {
+      setCurrentIndex(0);
+      const firstSong = musicData[0];
+      if (firstSong.songUrl) {
+        playSong(firstSong.songUrl);
+        setActiveButton(true);
+      }
+    }
+    setCurrentTime(0);
+  }
+
   const handleSeek = (event) => {
     const seekTime = (event.target.value / 100) * duration;
     audioref.current.currentTime = seekTime;
     setCurrentTime(seekTime);
   };
 
+  const progressPercentage = (currentTime / duration) * 100;
+
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = Math.floor(timeInSeconds % 60);
-    return `${minutes < 10 ? "0" : ""}${minutes}:${
-      seconds < 10 ? "0" : ""
-    }${seconds}`;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
   return (
     <>
       <nav className="d-flex justify-content-between align-items-center px-2">
-        <div className="d-flex align-items-center gap-3">
-          <img
-            className="rounded-2"
-            src={songInfo.image}
-            style={{ height: "70px", width: "70px" }}
-            alt=""
-          />
+        <div className="d-flex align-items-center gap-3 w-100">
+          {songInfo.image ? (
+            <img
+              className="rounded-2"
+              src={songInfo.image}
+              style={{
+                height: "70px",
+                width: "70px",
+                objectFit: "cover",
+                border: "none",
+              }}
+              alt=""
+            />
+          ) : (
+            <div style={{ height: "70px", width: "70px" }}></div>
+          )}
+
           <div className="d-flex flex-column">
             <span className="fz-14 text-white">{songInfo.songTitle}</span>
-            <span className="fz-12">{songInfo.artistName}</span>
+            <>
+              <span className="fz-12 text-secondary">
+                {songInfo.artistName}
+              </span>
+            </>
           </div>
         </div>
-        <div className="d-flex flex-column gap-2">
-          <div className="d-flex justify-content-between">
+        <div className="d-flex flex-column justify-content-center align-items-center gap-2 w-100">
+          <div className="d-flex gap-3">
             <button className="btn">
               <svg
                 data-encore-id="icon"
@@ -114,7 +177,7 @@ const MusicControls = (props) => {
                 <path d="m7.5 10.723.98-1.167.957 1.14a2.25 2.25 0 0 0 1.724.804h1.947l-1.017-1.018a.75.75 0 1 1 1.06-1.06l2.829 2.828-2.829 2.828a.75.75 0 1 1-1.06-1.06L13.109 13H11.16a3.75 3.75 0 0 1-2.873-1.34l-.787-.938z"></path>
               </svg>
             </button>
-            <button className="btn">
+            <button className="btn" onClick={handlePrev}>
               <svg
                 data-encore-id="icon"
                 role="img"
@@ -157,7 +220,7 @@ const MusicControls = (props) => {
                 </svg>
               )}
             </button>
-            <button className="btn">
+            <button className="btn" onClick={handleNext}>
               <svg
                 data-encore-id="icon"
                 role="img"
@@ -184,24 +247,27 @@ const MusicControls = (props) => {
               </svg>
             </button>
           </div>
-          <div className="seekbar-container d-flex flex-row gap-2 w-100">
-            <span className="fz-12 text-white">
+          <div className="d-flex flex-row gap-2 w-100 align-items-center">
+            <span className="fz-12 text-white ">
               {formatTime(Math.floor(currentTime))}
             </span>
-            <input
-              className="seekbar"
-              type="range"
-              min="0"
-              max="100"
-              value={(currentTime / duration) * 100}
-              onChange={handleSeek}
-            />
+            <div className="d-flex justify-content-center w-100">
+              <input
+                className="seekbar"
+                type="range"
+                min="0"
+                max={100}
+                value={(currentTime / duration) * 100 || 0}
+                onChange={handleSeek}
+                style={{ width: "100%" }}
+              />
+            </div>
             <span className="fz-12 text-white">
               {formatTime(Math.floor(duration))}
             </span>
           </div>
         </div>
-        <div className="d-flex gap-3">
+        <div className="volume-control">
           <button className="btn p-0">
             <svg
               data-encore-id="icon"
@@ -256,22 +322,28 @@ const MusicControls = (props) => {
               <path d="M13 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm-1-5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
             </svg>
           </button>
-          <button className="btn p-0">
-            <svg
-              data-encore-id="icon"
-              role="presentation"
-              aria-label="Volume high"
-              aria-hidden="true"
-              id="volume-icon"
-              viewBox="0 0 16 16"
-              className="Svg-sc-ytk21e-0 kcUFwU"
-              height={15}
-              fill="#bbb"
-            >
-              <path d="M9.741.85a.75.75 0 0 1 .375.65v13a.75.75 0 0 1-1.125.65l-6.925-4a3.642 3.642 0 0 1-1.33-4.967 3.639 3.639 0 0 1 1.33-1.332l6.925-4a.75.75 0 0 1 .75 0zm-6.924 5.3a2.139 2.139 0 0 0 0 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 4.29V5.56a2.75 2.75 0 0 1 0 4.88z"></path>
-              <path d="M11.5 13.614a5.752 5.752 0 0 0 0-11.228v1.55a4.252 4.252 0 0 1 0 8.127v1.55z"></path>
-            </svg>
-          </button>
+          <div className="d-flex align-items-center">
+            <button className="btn p-0">
+              <svg
+                data-encore-id="icon"
+                role="presentation"
+                aria-label="Volume high"
+                aria-hidden="true"
+                id="volume-icon"
+                viewBox="0 0 16 16"
+                className="Svg-sc-ytk21e-0 kcUFwU"
+                height={15}
+                fill="#bbb"
+              >
+                <path d="M9.741.85a.75.75 0 0 1 .375.65v13a.75.75 0 0 1-1.125.65l-6.925-4a3.642 3.642 0 0 1-1.33-4.967 3.639 3.639 0 0 1 1.33-1.332l6.925-4a.75.75 0 0 1 .75 0zm-6.924 5.3a2.139 2.139 0 0 0 0 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 4.29V5.56a2.75 2.75 0 0 1 0 4.88z"></path>
+                <path d="M11.5 13.614a5.752 5.752 0 0 0 0-11.228v1.55a4.252 4.252 0 0 1 0 8.127v1.55z"></path>
+              </svg>
+            </button>
+            <progress
+              style={{ height: "10px", width: "50px" }}
+              value={0}
+            ></progress>
+          </div>
           <button className="btn p-0">
             <svg
               data-encore-id="icon"
